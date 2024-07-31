@@ -19,6 +19,7 @@ add_executable(oled_display
 target_sources(oled_display PRIVATE 
     display/oled.c
     display/text.c
+    display/paint.c
 )
 
 target_include_directories(oled_display PRIVATE fonts display)

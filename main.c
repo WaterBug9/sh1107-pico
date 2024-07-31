@@ -4,6 +4,8 @@
 #include "stdio.h"
 #include "oled.h"
 #include "text.h"
+#include "images.h"
+#include "paint.h"
 
 int main() {
     stdio_init_all();
@@ -16,7 +18,7 @@ int main() {
  //   sh1107_fill_buffer();
     sh1107_update_display();
 
-    display_hex_array();
+    display_hex_array(numbers);
 
     sh1107_update_display();
   //  sh1107_empty_buffer();
