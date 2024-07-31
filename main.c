@@ -18,7 +18,8 @@ int main() {
  //   sh1107_fill_buffer();
     sh1107_update_display();
 
-    display_hex_array(numbers);
+ //   display_hex_array(numbers);
+    display_number(6, numbers, 0, 0);
 
     sh1107_update_display();
   //  sh1107_empty_buffer();

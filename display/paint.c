@@ -27,3 +27,36 @@ void display_hex_array(const uint8_t hex_array[]) {
         }
     }
 }
+
+void display_number(int number, const uint8_t numbers[], int x, int y) {
+    number = 9-number;
+
+    int interval = 5;
+    int numWidth = numbers[18], numHeight = numbers[22];
+    int offset = numbers[10];
+
+    int startingPoint = (interval*number)+(20*number)-interval;
+    int endingPoint = startingPoint+20;
+
+    int count = 0;
+
+    printf("STARTING POINT: %d\n", startingPoint);
+    printf("ENDING POINT: %d\n", endingPoint);
+
+    x-=startingPoint;
+
+    for (int t = y+1; t < numHeight+1+y; t++) {
+        for (int z = x+1; z < numWidth+1+x; z++) {
+            if (count/4%numWidth >= startingPoint && count/4%numWidth <= endingPoint) {
+                uint8_t pixel = numbers[count+offset];
+                if (pixel == 0x00) {
+                    sh1107_set_pixel(z, t, true);
+                } else {
+                    sh1107_set_pixel(z, t, false);
+                }
+            }
+            count+=4;
+        }
+        
+    }
+}
