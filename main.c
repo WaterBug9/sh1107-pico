@@ -19,7 +19,7 @@ int main() {
     sh1107_update_display();
 
  //   display_hex_array(numbers);
-    display_number(4, numbers, 64, 64);
+    display_number("44", numbers, 64, 64);
 
     sh1107_update_display();
   //  sh1107_empty_buffer();

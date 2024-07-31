@@ -28,7 +28,7 @@ void display_hex_array(const uint8_t hex_array[]) {
     }
 }
 
-void display_number(int number, const uint8_t numbers[], int x, int y) {
+void display_single_digit(int number, const uint8_t numbers[], int x, int y) {
     number = 9-number;
 
     int interval = 5;
@@ -58,5 +58,20 @@ void display_number(int number, const uint8_t numbers[], int x, int y) {
             count+=4;
         }
         
+    }
+}
+
+void display_number(char *number, const uint8_t numbers[], int x, int y) {
+    int length = strlen(number);
+ //   char split = strtok(number, "");
+
+    int interval = 5;
+    int numWidth = 20;
+
+    for (int i = 0; i < strlen(number); i++) {
+        int num = number[i]-'0';
+        printf("%d\n", num);
+
+        display_single_digit(num, numbers, x-i*(interval+numWidth), y);
     }
 }
