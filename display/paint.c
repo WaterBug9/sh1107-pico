@@ -40,8 +40,8 @@ void display_number(int number, const uint8_t numbers[], int x, int y) {
 
     int count = 0;
 
-    printf("STARTING POINT: %d\n", startingPoint);
-    printf("ENDING POINT: %d\n", endingPoint);
+//    printf("STARTING POINT: %d\n", startingPoint);
+//    printf("ENDING POINT: %d\n", endingPoint);
 
     x-=startingPoint;
 
