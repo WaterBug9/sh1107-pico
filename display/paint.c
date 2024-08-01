@@ -5,8 +5,7 @@
 #include <oled.h>
 #include "paint.h"
 
-void display_hex_array(const uint8_t hex_array[]) {
-    uint8_t x = 0, y = 0; // Starting coordinates
+void display_hex_array(const uint8_t hex_array[], int x, int y) {
     int height = hex_array[22], width = hex_array[18];
     int offset = hex_array[10];
 
@@ -15,8 +14,8 @@ void display_hex_array(const uint8_t hex_array[]) {
 
     int count = 0;
 
-    for (int t = y+1; t < height+1; t++) {
-        for (int z = x+1; z < width+1; z++) {
+    for (int t = y+1; t < height+1+y; t++) {
+        for (int z = x+1; z < width+1+x; z++) {
             uint8_t pixel = hex_array[count+offset];
             if (pixel != 0x00) {
                 sh1107_set_pixel(z, t, true);
@@ -30,13 +29,15 @@ void display_hex_array(const uint8_t hex_array[]) {
 
 void display_single_digit(int number, const uint8_t numbers[], int x, int y) {
     number = 9-number;
+    int customOffset = 2;
 
-    int interval = 5;
-    int numWidth = numbers[18], numHeight = numbers[22];
-    int offset = numbers[10];
+    int numWidth = numbers[0];
+    int interval = numbers[1];
+    int width = numbers[18+customOffset], height = numbers[22+customOffset];
+    int offset = numbers[10+customOffset];
 
-    int startingPoint = (interval*number)+(20*number)-interval;
-    int endingPoint = startingPoint+20;
+    int startingPoint = (interval*number)+(numWidth*number)-interval+customOffset;
+    int endingPoint = startingPoint+numWidth;
 
     int count = 0;
 
@@ -45,9 +46,9 @@ void display_single_digit(int number, const uint8_t numbers[], int x, int y) {
 
     x-=startingPoint;
 
-    for (int t = y+1; t < numHeight+1+y; t++) {
-        for (int z = x+1; z < numWidth+1+x; z++) {
-            if (count/4%numWidth >= startingPoint && count/4%numWidth <= endingPoint) {
+    for (int t = y+1; t < height+1+y; t++) {
+        for (int z = x+1; z < width+1+x; z++) {
+            if (count/4%width >= startingPoint && count/4%width <= endingPoint) {
                 uint8_t pixel = numbers[count+offset];
                 if (pixel == 0x00) {
                     sh1107_set_pixel(z, t, true);
@@ -61,17 +62,18 @@ void display_single_digit(int number, const uint8_t numbers[], int x, int y) {
     }
 }
 
-void display_number(char *number, const uint8_t numbers[], int x, int y) {
+void display_number(char *number, const uint8_t numbers[], int x, int y, int spacing) {
     int length = strlen(number);
- //   char split = strtok(number, "");
 
-    int interval = 5;
-    int numWidth = 20;
+    int interval = numbers[1];  
+    int numWidth = numbers[0];
+
+    printf("WIDTH: %d\n", numWidth);
+    printf("INTERVAL: %d\n", interval);
 
     for (int i = 0; i < strlen(number); i++) {
         int num = number[i]-'0';
-        printf("%d\n", num);
 
-        display_single_digit(num, numbers, x-i*(interval+numWidth), y);
+        display_single_digit(num, numbers, x-i*(interval+numWidth)-(spacing*i), y);
     }
 }
