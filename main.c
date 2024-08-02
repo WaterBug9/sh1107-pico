@@ -18,9 +18,13 @@ int main() {
  //   sh1107_fill_buffer();
     sh1107_update_display();
 
+    draw_filled_rectangle(10, 10, 35, 40);
+
  //   display_hex_array(numbers);
-    display_number("27", numbers12x16, 44, 64, 2);
-    display_hex_array(thermometer, 64, 58);
+//    display_number("27", numbers12x16, 44, 64, 2);
+ //   display_hex_array(thermometer, 64, 58);
+ //   display_hex_array(celcius, 15, 64);
+    
 
     sh1107_update_display();
   //  sh1107_empty_buffer();

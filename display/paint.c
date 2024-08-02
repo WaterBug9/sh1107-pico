@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include <oled.h>
 #include "paint.h"
+#include "math.h"
 
 void display_hex_array(const uint8_t hex_array[], int x, int y) {
     int height = hex_array[22], width = hex_array[18];
@@ -76,4 +77,42 @@ void display_number(char *number, const uint8_t numbers[], int x, int y, int spa
 
         display_single_digit(num, numbers, x-i*(interval+numWidth)-(spacing*i), y);
     }
+}
+
+void draw_rectangle(int x1, int y1, int x2, int y2) {
+
+    int xdiff = x2-x1;
+    int ydiff = y2-y1;
+
+    if (xdiff < 0) {
+        xdiff = 0-xdiff;
+    }
+
+    if (ydiff < 0) {
+        ydiff = 0-ydiff;
+    }
+
+    sh1107_draw_line(x2-xdiff, y2, x2, y2);
+    sh1107_draw_line(x2, y2-ydiff, x2, y2);
+    sh1107_draw_line(x1, y1, x1+xdiff, y1);
+    sh1107_draw_line(x1, y1, x1, y1+ydiff);   
+}
+
+void draw_filled_rectangle(int x1, int y1, int x2, int y2) {
+    int i = 0;
+
+    while (true)
+    {
+        draw_rectangle(x1+i, y1+i, x2-i, y2-i);
+
+        if (x1+i==x2-i || x1+i==x2-i-1 || x1+i-1==x2-i) {
+            break;
+        }
+
+        sh1107_update_display();
+        sleep_ms(500);
+
+        i++;
+    }
+    
 }
