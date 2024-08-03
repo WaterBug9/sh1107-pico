@@ -110,7 +110,6 @@ void draw_filled_rectangle(int x1, int y1, int x2, int y2) {
         }
 
         sh1107_update_display();
-        sleep_ms(500);
 
         i++;
     }

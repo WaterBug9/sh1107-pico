@@ -17,7 +17,9 @@ int main() {
 
     sh1107_update_display();
 
-    draw_filled_rectangle(10, 10, 35, 40);    
+    char n[] = "Hello World!";
+
+    sh1107_draw_string(34, 10, n);
 
     sh1107_update_display();
     
