@@ -1,5 +1,7 @@
 First github project, and first time using the c programming language :D
 
+# THIS HAS ONLY BEEN TEST ON A 1.5INCH BLACK AND WHITE SCREEN
+
 # How to display images on the screen
 The screen reads images from hex arrays, specifically hex arrays from .bmp images that are black and white.
 You can convert a .bmp image to a hex array with this website: https://tomeko.net/online_tools/file_to_hex.php?lang=en
